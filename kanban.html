@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#0f0f0f;color:#fff;font-family:sans-serif;padding:20px">
+<h1>📋 Kanban</h1>
+<div style="display:flex;gap:20px">
+<div style="background:#141414;padding:16px;border-radius:12px">
+<h2>Te Doen</h2>
+<button onclick="add('todo')" style="background:#222;border:1px dashed #555;padding:8px;width:100%">+ Taak</button>
+<div id="todo"></div>
+</div>
+<div style="background:#141414;padding:16px;border-radius:12px">
+<h2>In Progress</h2>
+<button onclick="add('doing')" style="background:#222;border:1px dashed #555;padding:8px;width:100%">+ Taak</button>
+<div id="doing"></div>
+</div>
+<div style="background:#141414;padding:16px;border-radius:12px">
+<h2>Gedaan</h2>
+<button onclick="add('done')" style="background:#222;border:1px dashed #555;padding:8px;width:100%">+ Taak</button>
+<div id="done"></div>
+</div>
+</div>
+<script>
+let t=JSON.parse(localStorage.getItem("k")||"[]");
+function r(){["todo","doing","done"].forEach(s=>{document.getElementById(s).innerHTML=t.filter(x=>x.s==s).map(x=>"<div style='background:#222;padding:10px;margin:8px 0;border-radius:8px'>"+x.t+" <button onclick=\"del("+x.i+")\" style='float:right;background:0;border:0;color:#666'>✕</button></div>").join("")})}
+function add(s){let ta=prompt("Taak:");if(ta){t.push({i:Date.now(),t:ta,s});r();localStorage.setItem("k",JSON.stringify(t))}}
+function del(i){t=t.filter(x=>x.i!=i);r();localStorage.setItem("k",JSON.stringify(t))}
+r()
+</script>
+</body>
+</html>
